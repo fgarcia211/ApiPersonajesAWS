@@ -2,6 +2,7 @@ using ApiPersonajesAWS.Data;
 using ApiPersonajesAWS.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
+using MySqlConnector;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +12,7 @@ string connectionString = builder.Configuration.GetConnectionString("MySqlTelevi
 builder.Services.AddTransient<RepositoryPersonajes>();
 builder.Services.AddDbContext<PersonajesContext>(options => options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
 builder.Services.AddControllers();
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options =>
@@ -28,6 +30,7 @@ builder.Services.AddCors(p => p.AddPolicy("corsenabled", builder =>
 }));
 
 var app = builder.Build();
+
 app.UseSwagger();
 app.UseSwaggerUI(options =>
 {
